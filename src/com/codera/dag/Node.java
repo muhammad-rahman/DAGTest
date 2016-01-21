@@ -4,16 +4,16 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 
-public class Node {
-	private String name;
+public class Node<T> {
+	private T name;
 	private Collection<Node> children = new HashSet<Node>();
 
-	public Node(String name) {
+	public Node(T name) {
 		this.name = name;
 	}
 
 	public String getName() {
-		return this.name;
+		return name.toString();
 	}
 
 	public void addChild(Node child) {
