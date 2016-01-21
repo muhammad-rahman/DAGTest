@@ -6,7 +6,7 @@ import java.util.HashSet;
 
 public class Node<T> {
 	private T name;
-	private Collection<Node> children = new HashSet<Node>();
+	private Collection<Node<T>> children = new HashSet<Node<T>>();
 
 	public Node(T name) {
 		this.name = name;
@@ -16,31 +16,31 @@ public class Node<T> {
 		return name.toString();
 	}
 
-	public void addChild(Node child) {
+	public void addChild(Node<T> child) {
 		if (!this.hasParent(child)) {
 			children.add(child);
 		}
 	}
 
-	public boolean hasChild(Node child) {
+	public boolean hasChild(Node<T> child) {
 		return children.contains(child);
 	}
 
-	public boolean hasParent(Node parent) {
+	public boolean hasParent(Node<T> parent) {
 		return parent.children.contains(this);
 	}
 
-	public Collection<Node> getChildren() {
+	public Collection<Node<T>> getChildren() {
 		return Collections.unmodifiableCollection(children);
 	}
 
-	public Collection<Node> getDescendents() {
-		Collection<Node> descendents = new HashSet<Node>();
-		for (Node child : children) {
+	public Collection<Node<T>> getDescendents() {
+		Collection<Node<T>> descendents = new HashSet<Node<T>>();
+		for (Node<T> child : children) {
 			descendents.add(child);
-			Collection<Node> nodeDescendents = child.getDescendents();
+			Collection<Node<T>> nodeDescendents = child.getDescendents();
 
-			for (Node nodeDescendent : nodeDescendents) {
+			for (Node<T> nodeDescendent : nodeDescendents) {
 				descendents.add(nodeDescendent);
 			}
 		}

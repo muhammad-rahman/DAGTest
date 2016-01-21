@@ -13,15 +13,15 @@ public class NodeTest {
 
 	@Test
 	public void testNodeName() {
-		Node drink = new Node("Drink");
+		Node<String> drink = new Node<String>("Drink");
 
 		assertEquals("Drink", drink.getName());
 	}
-	
+
 	@Test
 	public void testNodeAndChildLink() {
-		Node drink = new Node("Drink");
-		Node sparklingDrink = new Node("Sparkling Drink");
+		Node<String> drink = new Node<String>("Drink");
+		Node<String> sparklingDrink = new Node<String>("Sparkling Drink");
 
 		assertFalse(drink.hasChild(sparklingDrink));
 
@@ -33,8 +33,8 @@ public class NodeTest {
 	
 	@Test
 	public void testAddSameChildTwice() {
-		Node parent = new Node("Parent");
-		Node child = new Node("Child");
+		Node<String> parent = new Node<String>("Parent");
+		Node<String> child = new Node<String>("Child");
 		
 		parent.addChild(child);
 		parent.addChild(child);
@@ -45,9 +45,9 @@ public class NodeTest {
 
 	@Test
 	public void testWrongChildNotAdded() {
-		Node drink = new Node("Drink");
-		Node sparklingDrink = new Node("Sparkling Drink");
-		Node alcoholicDrink = new Node("Alcoholic Drink");
+		Node<String> drink = new Node<String>("Drink");
+		Node<String> sparklingDrink = new Node<String>("Sparkling Drink");
+		Node<String> alcoholicDrink = new Node<String>("Alcoholic Drink");
 		
 		drink.addChild(sparklingDrink);
 		
@@ -56,9 +56,9 @@ public class NodeTest {
 
 	@Test
 	public void testHasParent() {
-		Node drink = new Node("Drink");
-		Node sparklingDrink = new Node("Sparkling Drink");
-		Node beer = new Node("Beer");
+		Node<String> drink = new Node<String>("Drink");
+		Node<String> sparklingDrink = new Node<String>("Sparkling Drink");
+		Node<String> beer = new Node<String>("Beer");
 		
 		assertFalse(beer.hasParent(sparklingDrink));
 
@@ -70,18 +70,18 @@ public class NodeTest {
 	
 	@Test
 	public void testGetChildren() {
-		Node drink = new Node("Drink");
-		Node sparklingDrink = new Node("Sparkling Drink");
-		Node beer = new Node("Beer");
+		Node<String> drink = new Node<String>("Drink");
+		Node<String> sparklingDrink = new Node<String>("Sparkling Drink");
+		Node<String> beer = new Node<String>("Beer");
 		
 		drink.addChild(sparklingDrink);
 		drink.addChild(beer);
 		
-		Collection<Node> expected = new ArrayList<Node>(); 
+		Collection<Node<String>> expected = new ArrayList<Node<String>>(); 
 		expected.add(sparklingDrink);
 		expected.add(beer);
 		
-		Collection<Node> actual = drink.getChildren() ; 
+		Collection<Node<String>> actual = drink.getChildren() ; 
 		
 		assertEquals(2, actual.size());
 		assertTrue(actual.contains(beer));
@@ -90,16 +90,16 @@ public class NodeTest {
 
 	@Test
 	public void testGetChildrenReturnsImmutableCollection() {
-		Node parent = new Node("Parent");
-		Node child = new Node("Child");
+		Node<String> parent = new Node<String>("Parent");
+		Node<String> child = new Node<String>("Child");
 		
 		parent.addChild(child);
 		assertEquals(1, parent.getChildren().size() );
 		
-		Collection<Node> children = parent.getChildren() ;
+		Collection<Node<String>> children = parent.getChildren() ;
 		
 		try {
-			children.add(new Node("Grand Child"));
+			children.add(new Node<String>("Grand Child"));
 			fail("should have thrown an error");
 		} catch (UnsupportedOperationException e) {
 			//Okay. Exception expected
@@ -110,9 +110,9 @@ public class NodeTest {
 
 	@Test
 	public void testIterationOverChildNodes() {
-		Node drink = new Node("Drink");
-		Node alchoholic = new Node("Alchoholic");
-		Node wine = new Node("Wine");
+		Node<String> drink = new Node<String>("Drink");
+		Node<String> alchoholic = new Node<String>("Alchoholic");
+		Node<String> wine = new Node<String>("Wine");
 		 
 		drink.addChild(alchoholic);
 		alchoholic.addChild(wine);
@@ -122,11 +122,11 @@ public class NodeTest {
 	
 	@Test
 	public void testIterationOverDeeperTreeStructure() {
-		Node drink = new Node("Drink");
-		Node alchoholic = new Node("Alchoholic");
-		Node wine = new Node("Wine");
-		Node champagne = new Node("Champagne");
-		Node beer = new Node("Beer");
+		Node<String> drink = new Node<String>("Drink");
+		Node<String> alchoholic = new Node<String>("Alchoholic");
+		Node<String> wine = new Node<String>("Wine");
+		Node<String> champagne = new Node<String>("Champagne");
+		Node<String> beer = new Node<String>("Beer");
 		 
 		drink.addChild(alchoholic);
 		alchoholic.addChild(wine);
@@ -139,10 +139,10 @@ public class NodeTest {
 	@Test
 	public void testGetDescendentsWithMultipleInheritance() {
 		
-		Node a = new Node("a");
-		Node b = new Node("b");
-		Node c = new Node("c");
-		Node d = new Node("d");
+		Node<String> a = new Node<String>("a");
+		Node<String> b = new Node<String>("b");
+		Node<String> c = new Node<String>("c");
+		Node<String> d = new Node<String>("d");
 		
 		a.addChild(b);
 		a.addChild(c);
@@ -154,8 +154,8 @@ public class NodeTest {
 	
 	@Test
 	public void testAcyclic(){
-		Node parent = new Node("Parent");
-		Node child = new Node("Child");
+		Node<String> parent = new Node<String>("Parent");
+		Node<String> child = new Node<String>("Child");
 		
 		parent.addChild(child);
 		child.addChild(parent);
