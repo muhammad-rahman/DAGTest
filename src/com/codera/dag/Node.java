@@ -7,7 +7,7 @@ import java.util.HashSet;
 public class Node {
 	private String name;
 	private Collection<Node> children = new HashSet<Node>();
-	
+
 	public Node(String name) {
 		this.name = name;
 	}
@@ -15,9 +15,9 @@ public class Node {
 	public String getName() {
 		return this.name;
 	}
-	
+
 	public void addChild(Node child) {
-		if(!this.hasParent(child)) {
+		if (!this.hasParent(child)) {
 			children.add(child);
 		}
 	}
@@ -36,15 +36,15 @@ public class Node {
 
 	public Collection<Node> getDescendents() {
 		Collection<Node> descendents = new HashSet<Node>();
-		for (Node child: children) {
+		for (Node child : children) {
 			descendents.add(child);
 			Collection<Node> nodeDescendents = child.getDescendents();
-			
-			for(Node nodeDescendent: nodeDescendents) {
-					descendents.add(nodeDescendent);
+
+			for (Node nodeDescendent : nodeDescendents) {
+				descendents.add(nodeDescendent);
 			}
 		}
-		
+
 		return descendents;
 	}
 }
