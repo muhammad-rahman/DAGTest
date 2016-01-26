@@ -7,7 +7,7 @@ import java.util.Collection;
 
 import org.junit.Test;
 
-import com.codera.dag.Node;
+import main.java.Node;
 
 public class NodeTest {
 

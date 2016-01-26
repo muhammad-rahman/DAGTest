@@ -1,4 +1,4 @@
-package com.codera.dag;
+package main.java;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -12,8 +12,8 @@ public class Node<T> {
 		this.name = name;
 	}
 
-	public String getName() {
-		return name.toString();
+	public T getName() {
+		return name;
 	}
 
 	public void addChild(Node<T> child) {
