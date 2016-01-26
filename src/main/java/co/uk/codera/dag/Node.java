@@ -17,13 +17,19 @@ public class Node<T> {
 	}
 
 	public void addChild(Node<T> child) {
-		if (!this.hasParent(child)) {
+		if (!hasAncestor(child, this)) {
 			children.add(child);
+		} else {
+			throw new RuntimeException("Voliates acyclic rules");
 		}
 	}
 
 	public boolean hasChild(Node<T> child) {
 		return children.contains(child);
+	}
+
+	public boolean hasAncestor(Node<T> potentialAncestor, Node<T> potentialDesendents) {
+		return potentialAncestor.getDescendents().contains(potentialDesendents);
 	}
 
 	public boolean hasParent(Node<T> parent) {
@@ -38,11 +44,7 @@ public class Node<T> {
 		Collection<Node<T>> descendents = new HashSet<Node<T>>();
 		for (Node<T> child : children) {
 			descendents.add(child);
-			Collection<Node<T>> nodeDescendents = child.getDescendents();
-
-			for (Node<T> nodeDescendent : nodeDescendents) {
-				descendents.add(nodeDescendent);
-			}
+			descendents.addAll(child.getDescendents());
 		}
 
 		return descendents;

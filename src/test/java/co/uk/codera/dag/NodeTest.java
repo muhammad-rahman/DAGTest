@@ -13,121 +13,117 @@ public class NodeTest {
 
 	@Test
 	public void testNodeName() {
-		Node<String> drink = new Node<String>("Drink");
+		Node<String> node = new Node<String>("node");
 
-		assertEquals("Drink", drink.getName());
+		assertEquals("node", node.getName());
 	}
 
 	@Test
 	public void testNodeAndChildLink() {
-		Node<String> drink = new Node<String>("Drink");
-		Node<String> sparklingDrink = new Node<String>("Sparkling Drink");
+		Node<String> parent = new Node<String>("parent");
+		Node<String> child = new Node<String>("child");
 
-		assertFalse(drink.hasChild(sparklingDrink));
+		assertFalse(parent.hasChild(child));
 
-		drink.addChild(sparklingDrink);
-		
-		assertTrue(drink.hasChild(sparklingDrink));
+		parent.addChild(child);
+
+		assertTrue(parent.hasChild(child));
 	}
-	
-	
+
 	@Test
 	public void testAddSameChildTwice() {
-		Node<String> parent = new Node<String>("Parent");
-		Node<String> child = new Node<String>("Child");
-		
-		parent.addChild(child);
-		parent.addChild(child);
-		
-		assertEquals(1, parent.getChildren().size() );
-	}
+		Node<String> parent = new Node<String>("parent");
+		Node<String> child = new Node<String>("child");
 
+		parent.addChild(child);
+		parent.addChild(child);
+
+		assertEquals(1, parent.getChildren().size());
+	}
 
 	@Test
 	public void testWrongChildNotAdded() {
-		Node<String> drink = new Node<String>("Drink");
-		Node<String> sparklingDrink = new Node<String>("Sparkling Drink");
-		Node<String> alcoholicDrink = new Node<String>("Alcoholic Drink");
-		
-		drink.addChild(sparklingDrink);
-		
-		assertFalse(drink.hasChild(alcoholicDrink));
+		Node<String> parent = new Node<String>("parent");
+		Node<String> childOne = new Node<String>("child one");
+		Node<String> childTwo = new Node<String>("child two");
+
+		parent.addChild(childOne);
+
+		assertFalse(parent.hasChild(childTwo));
 	}
 
 	@Test
 	public void testHasParent() {
-		Node<String> drink = new Node<String>("Drink");
-		Node<String> sparklingDrink = new Node<String>("Sparkling Drink");
-		Node<String> beer = new Node<String>("Beer");
-		
-		assertFalse(beer.hasParent(sparklingDrink));
+		Node<String> parent = new Node<String>("parent");
+		Node<String> child = new Node<String>("child");
 
-		drink.addChild(sparklingDrink);
-		sparklingDrink.addChild(beer);
-		
-		assertTrue(beer.hasParent(sparklingDrink));
+		assertFalse(child.hasParent(parent));
+
+		parent.addChild(child);
+
+		assertTrue(child.hasParent(parent));
 	}
-	
+
 	@Test
 	public void testGetChildren() {
-		Node<String> drink = new Node<String>("Drink");
-		Node<String> sparklingDrink = new Node<String>("Sparkling Drink");
-		Node<String> beer = new Node<String>("Beer");
-		
-		drink.addChild(sparklingDrink);
-		drink.addChild(beer);
-		
-		Collection<Node<String>> expected = new ArrayList<Node<String>>(); 
-		expected.add(sparklingDrink);
-		expected.add(beer);
-		
-		Collection<Node<String>> actual = drink.getChildren() ; 
-		
+		Node<String> parent = new Node<String>("parent");
+		Node<String> childOne = new Node<String>("first child");
+		Node<String> childTwo = new Node<String>("second child");
+
+		parent.addChild(childOne);
+		parent.addChild(childTwo);
+
+		Collection<Node<String>> expected = new ArrayList<Node<String>>();
+		expected.add(childOne);
+		expected.add(childTwo);
+
+		Collection<Node<String>> actual = parent.getChildren();
+
 		assertEquals(2, actual.size());
-		assertTrue(actual.contains(beer));
-		assertTrue(actual.contains(sparklingDrink));
+		assertTrue(actual.contains(childOne));
+		assertTrue(actual.contains(childTwo));
 	}
 
 	@Test
 	public void testGetChildrenReturnsImmutableCollection() {
-		Node<String> parent = new Node<String>("Parent");
-		Node<String> child = new Node<String>("Child");
-		
+		Node<String> parent = new Node<String>("parent");
+		Node<String> child = new Node<String>("child");
+
 		parent.addChild(child);
-		assertEquals(1, parent.getChildren().size() );
-		
-		Collection<Node<String>> children = parent.getChildren() ;
-		
+		assertEquals(1, parent.getChildren().size());
+
+		Collection<Node<String>> children = parent.getChildren();
+
 		try {
 			children.add(new Node<String>("Grand Child"));
 			fail("should have thrown an error");
 		} catch (UnsupportedOperationException e) {
-			//Okay. Exception expected
+			// Okay. Exception expected
 		}
-		
-		assertEquals(1, parent.getChildren().size() );
+
+		assertEquals(1, parent.getChildren().size());
 	}
 
 	@Test
 	public void testIterationOverChildNodes() {
-		Node<String> drink = new Node<String>("Drink");
-		Node<String> alchoholic = new Node<String>("Alchoholic");
-		Node<String> wine = new Node<String>("Wine");
-		 
-		drink.addChild(alchoholic);
-		alchoholic.addChild(wine);
-		
-		assertEquals(2, drink.getDescendents().size());	
+		Node<String> parent = new Node<String>("parent");
+		Node<String> child = new Node<String>("child");
+		Node<String> grandChild = new Node<String>("grandchild");
+
+		parent.addChild(child);
+		child.addChild(grandChild);
+
+		assertEquals(2, parent.getDescendents().size());
 	}
-	
+
 	@Test
 	public void testIterationOverDeeperTreeStructure() {
-		Node<String> drink = new Node<String>("Drink");
-		Node<String> alchoholic = new Node<String>("Alchoholic");
-		Node<String> wine = new Node<String>("Wine");
-		Node<String> champagne = new Node<String>("Champagne");
-		Node<String> beer = new Node<String>("Beer");
-		 
+		Node<String> drink = new Node<String>("drink");
+		Node<String> alchoholic = new Node<String>("alchoholic");
+		Node<String> wine = new Node<String>("wine");
+		Node<String> champagne = new Node<String>("champagne");
+		Node<String> beer = new Node<String>("ceer");
+
 		drink.addChild(alchoholic);
 		alchoholic.addChild(wine);
 		alchoholic.addChild(beer);
@@ -135,31 +131,56 @@ public class NodeTest {
 
 		assertEquals(4, drink.getDescendents().size());
 	}
-	
+
 	@Test
 	public void testGetDescendentsWithMultipleInheritance() {
+
+		Node<String> nodeA = new Node<String>("node a");
+		Node<String> nodeB = new Node<String>("node b");
+		Node<String> nodeC = new Node<String>("node c");
+		Node<String> nodeD = new Node<String>("node d");
+
+		nodeA.addChild(nodeB);
+		nodeA.addChild(nodeC);
+		nodeB.addChild(nodeD);
+		nodeC.addChild(nodeD);
+
+		assertEquals(3, nodeA.getDescendents().size());
+	}
+
+	@Test
+	public void testAcyclic() {
+		Node<String> parent = new Node<String>("parent");
+		Node<String> child = new Node<String>("child");
+
+		parent.addChild(child);
 		
-		Node<String> a = new Node<String>("a");
-		Node<String> b = new Node<String>("b");
-		Node<String> c = new Node<String>("c");
-		Node<String> d = new Node<String>("d");
-		
-		a.addChild(b);
-		a.addChild(c);
-		b.addChild(d);
-		c.addChild(d);
-		
-		assertEquals(3, a.getDescendents().size()) ;
+		try {
+			child.addChild(parent);
+			fail("should have thrown an error");
+		} catch (RuntimeException e) {
+			// Okay. Exception expected
+		}
+
+		assertEquals(0, child.getDescendents().size());
 	}
 	
 	@Test
-	public void testAcyclic(){
-		Node<String> parent = new Node<String>("Parent");
-		Node<String> child = new Node<String>("Child");
+	public void testDeeperAcyclic() {
+		Node<String> parent = new Node<String>("parent");
+		Node<String> child = new Node<String>("child");
+		Node<String> grandChild = new Node<String>("grandChild");
 		
 		parent.addChild(child);
-		child.addChild(parent);
+		child.addChild(grandChild);
 		
-		assertEquals(1, parent.getDescendents().size());
-	}	
+		try {
+			grandChild.addChild(parent);
+			fail("should have thrown an error");
+		} catch (RuntimeException e) {
+			// Okay. Exception expected
+		}
+
+		assertEquals(0, grandChild.getDescendents().size());
+	}
 }
