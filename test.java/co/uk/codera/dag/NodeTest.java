@@ -1,4 +1,4 @@
-package com.codera.dag.tests;
+package co.uk.codera.dag;
 
 import static org.junit.Assert.*;
 
@@ -7,7 +7,7 @@ import java.util.Collection;
 
 import org.junit.Test;
 
-import main.java.Node;
+import co.uk.codera.dag.Node;
 
 public class NodeTest {
 
