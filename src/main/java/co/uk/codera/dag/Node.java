@@ -5,23 +5,23 @@ import java.util.Collections;
 import java.util.HashSet;
 
 public class Node<T> {
-	private T name;
+	private T data;
+	
 	private Collection<Node<T>> children = new HashSet<Node<T>>();
 
-	public Node(T name) {
-		this.name = name;
+	public Node(T data) {
+		this.data = data;
 	}
 
 	public T getName() {
-		return name;
+		return data;
 	}
 
 	public void addChild(Node<T> child) {
-		if (!hasAncestor(child, this)) {
-			children.add(child);
-		} else {
+		if (hasAncestor(child, this)) {
 			throw new RuntimeException("Voliates acyclic rules");
-		}
+		} 
+		children.add(child);
 	}
 
 	public boolean hasChild(Node<T> child) {
