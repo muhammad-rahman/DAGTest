@@ -7,16 +7,16 @@ import java.util.Map;
 import java.util.Set;
 
 public class DAG<T> {
-	private T data;
+	private String graphName;
 
 	private Map<T, Set<T>> map = new HashMap<T, Set<T>>();
 
-	public DAG(T data) {
-		this.data = data;
+	public DAG(String graphName) {
+		this.graphName = graphName;
 	}
 
-	public T getData() {
-		return data;
+	public String getGraphName() {
+		return graphName;
 	}
 
 	public void add(T parent, Set<T> childSet) {

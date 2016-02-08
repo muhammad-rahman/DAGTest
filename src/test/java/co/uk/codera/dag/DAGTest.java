@@ -18,7 +18,7 @@ public class DAGTest {
 	
 	@Test
 	public void testCreateGraphWithName() {
-		assertEquals("Direct Acyclic Graph Test", graph.getData().toString());
+		assertEquals("Direct Acyclic Graph Test", graph.getGraphName());
 	}
 
 	@Test
@@ -234,7 +234,7 @@ public class DAGTest {
 
 	@Test
 	public void testWithNumberNodes(){
-		DAG<Integer> graph = new DAG<Integer>(0);
+		DAG<Integer> graph = new DAG<Integer>("DAG with numerical nodes");
 
 		Set<Integer> parentDescendantSet = new HashSet<Integer>();
 		parentDescendantSet.add(2);
